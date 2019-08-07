@@ -1,0 +1,6 @@
+export const POSTS = {
+    LOAD: 'LOAD_POSTS',
+    LOAD_SUCCESS: 'LOAD_POSTS_SUCCESS',
+    LOAD_FAILURE: 'LOAD_POSTS_FAILURE',
+    
+}
