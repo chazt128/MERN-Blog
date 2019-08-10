@@ -23,7 +23,12 @@ const PostList = () => {
             <CardTitle>
               <h3>Loading Posts...</h3>
             </CardTitle>
-            <CardText>We're fetching them 😃</CardText>
+            <CardText>
+              We're fetching them
+              <span role="img" aria-label="smile">
+                😃
+              </span>
+            </CardText>
           </CardBody>
         </Card>
       )}
