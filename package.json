@@ -1,0 +1,14 @@
+{
+  "name": "Blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/chazt128/MERN-Blog.git",
+  "author": "Chaz <ctol1994@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "concurrently \"cd server && yarn start\" \"cd client && yarn start\""
+  },
+  "dependencies": {
+    "concurrently": "^4.1.1"
+  }
+}
