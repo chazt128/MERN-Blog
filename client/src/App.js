@@ -14,7 +14,7 @@ const App = () => {
     dispatch(loadPosts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts.length]);
-
+  console.log(posts);
   return (
     <div className="App">
       <header className="App-header">
