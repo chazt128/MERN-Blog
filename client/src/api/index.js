@@ -12,3 +12,12 @@ export const fetchPosts = async () => {
   }
   return data;
 };
+
+export const createPost = async () => {
+  const res = await fetch("/api/posts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+};

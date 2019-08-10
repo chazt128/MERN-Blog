@@ -5,5 +5,12 @@
   min-height: 100vh;
   padding: 50px 10px;
   display: flex;
+  flex-direction: row;
   justify-content: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .content {
+    flex-direction: column;
+  }
 }
