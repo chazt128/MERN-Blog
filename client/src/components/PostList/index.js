@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts } from "../../redux/actions";
-import { Card, CardText, CardBody, CardTitle } from "reactstrap";
+import {
+  Card,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Alert
+} from "reactstrap";
 import "./styles.css";
 
 const PostList = () => {
@@ -14,44 +21,47 @@ const PostList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts.length]);
 
+  const loadingCard = () => (
+    <Card className="card">
+      <CardBody>
+        <CardTitle>
+          <h3>Loading Posts...</h3>
+        </CardTitle>
+        <CardText>
+          We're fetching them
+          <span role="img" aria-label="smile">
+            😃
+          </span>
+        </CardText>
+      </CardBody>
+    </Card>
+  );
+
+  const displayPosts = () =>
+    posts.map(post => {
+      const { _id, title, content } = post;
+      let { date } = post;
+      date = new Date(date).toDateString();
+      return (
+        <Card className="card" key={_id}>
+          <CardBody>
+            <CardTitle>
+              <h3>{title}</h3>
+            </CardTitle>
+            <CardSubtitle>
+              <small>{date}</small>
+            </CardSubtitle>
+            <CardText>{content}</CardText>
+          </CardBody>
+        </Card>
+      );
+    });
+
   return (
     <div className="post-list">
-      {posts.length === 0 && !error && (
-        <Card className="card">
-          <CardBody>
-            <CardTitle>
-              <h3>Loading Posts...</h3>
-            </CardTitle>
-            <CardText>
-              We're fetching them
-              <span role="img" aria-label="smile">
-                😃
-              </span>
-            </CardText>
-          </CardBody>
-        </Card>
-      )}
-      {posts.length > 0 &&
-        posts.map(post => (
-          <Card className="card" key={post._id}>
-            <CardBody>
-              <CardTitle>
-                <h3>{post.title}</h3>
-              </CardTitle>
-              <CardText>{post.content}</CardText>
-            </CardBody>
-          </Card>
-        ))}
-      {error && (
-        <Card className="card">
-          <CardBody>
-            <CardTitle>
-              <h3>Error</h3>
-            </CardTitle>
-            <CardText>{error}</CardText>
-          </CardBody>
-        </Card>
-      )}
+      {posts.length === 0 && !error && loadingCard()}
+      {posts.length > 0 && displayPosts()}
+      {error && <Alert color="danger">{error}}</Alert>}
     </div>
   );
 };

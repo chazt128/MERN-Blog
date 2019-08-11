@@ -1,8 +1,8 @@
 {
-  "name": "Blog",
+  "name": "Journaling",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/chazt128/MERN-Blog.git",
+  "repository": "https://github.com/chazt128/Journaling.git",
   "author": "Chaz <ctol1994@gmail.com>",
   "license": "MIT",
   "scripts": {
