@@ -10,7 +10,6 @@ const PostList = () => {
   const error = useSelector(state => state.error);
 
   useEffect(() => {
-    console.log("mounted");
     dispatch(loadPosts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts.length]);

@@ -35,6 +35,7 @@ const CreatePost = () => {
             id="title"
             placeholder="Type your Title..."
             {...bindTitle}
+            required
           />
         </FormGroup>
         <FormGroup>
@@ -45,6 +46,7 @@ const CreatePost = () => {
             id="content"
             placeholder="Type your content..."
             {...bindContent}
+            required
           />
         </FormGroup>
         <Button type="submit" value="Submit">
