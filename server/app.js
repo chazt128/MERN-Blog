@@ -2,28 +2,32 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
-const path = require("path");
 const PORT = process.env.PORT || 5000;
+const isDev = process.env.NODE_ENV !== "production";
+const localDB = "mongodb://localhost:27017/blog-posts";
 require("dotenv/config");
 
-const application = path.join(__dirname, "/../client/public");
-app.use(express.static(application));
-console.log(application);
-//Middlewares
+// const application = path.join(__dirname, "/../client/public");
+// app.use(express.static(application));
+// console.log(application);
 
+// Middlewares
 app.use(express.json());
 app.use(cors());
+
 // Import Routes
 const postRoute = require("./routes/posts");
 
 app.use("/api/posts", postRoute);
 
-//ROUTES
+// Routes
 app.get("/", (req, res) => {
   res.send("We're home");
 });
 
-mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () =>
+// DB config
+let dbConfig = isDev ? localDB : process.env.DB_CONNECTION;
+mongoose.connect(dbConfig, { useNewUrlParser: true }, () =>
   console.log("connected to db")
 );
 

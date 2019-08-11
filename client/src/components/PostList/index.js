@@ -39,7 +39,7 @@ const PostList = () => {
               <CardTitle>
                 <h3>{post.title}</h3>
               </CardTitle>
-              <CardText>{post.description}</CardText>
+              <CardText>{post.content}</CardText>
             </CardBody>
           </Card>
         ))}
