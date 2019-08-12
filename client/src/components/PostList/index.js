@@ -26,12 +26,7 @@ const PostList = () => {
     <Card className="card">
       <CardBody>
         <CardTitle>
-          <h3>
-            Loading Posts
-            <Spinner type="grow" size="sm" color="dark" />
-            <Spinner type="grow" size="sm" color="dark" />
-            <Spinner type="grow" size="sm" color="dark" />
-          </h3>
+          <h3>Loading Posts...</h3>
         </CardTitle>
         <CardText>
           We're fetching them
@@ -39,6 +34,9 @@ const PostList = () => {
             😃
           </span>
         </CardText>
+        <Spinner type="grow" color="dark" />
+        <Spinner type="grow" color="dark" />
+        <Spinner type="grow" color="dark" />
       </CardBody>
     </Card>
   );
