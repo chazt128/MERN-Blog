@@ -28,28 +28,35 @@ const CreatePost = () => {
     <div className="form">
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label for="title">Title</Label>
+          <Label for="title">
+            <b>Title</b>
+          </Label>
           <Input
             type="text"
             name="title"
             id="title"
+            size="lg"
             placeholder="Type your Title..."
             {...bindTitle}
             required
           />
         </FormGroup>
         <FormGroup>
-          <Label for="content">Content</Label>
+          <Label for="content">
+            <b>Content</b>
+          </Label>
           <Input
             type="textarea"
             name="text"
             id="content"
             placeholder="Type your content..."
+            size="lg"
             {...bindContent}
+            style={{ height: "200px" }}
             required
           />
         </FormGroup>
-        <Button type="submit" value="Submit">
+        <Button type="submit" value="Submit" color="dark">
           Submit
         </Button>
       </Form>

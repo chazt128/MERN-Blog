@@ -8,3 +8,7 @@
 .card {
   margin: 20px 0;
 }
+
+.card-text {
+  white-space: pre-wrap;
+}
