@@ -61,7 +61,7 @@ const PostList = () => {
     <div className="post-list">
       {posts.length === 0 && !error && loadingCard()}
       {posts.length > 0 && displayPosts()}
-      {error && <Alert color="danger">{error}}</Alert>}
+      {error && <Alert color="danger">{error}</Alert>}
     </div>
   );
 };
