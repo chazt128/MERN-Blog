@@ -7,11 +7,8 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-<<<<<<< HEAD
   CardLink,
-=======
   Spinner,
->>>>>>> master
   Alert
 } from "reactstrap";
 import "./styles.css";
