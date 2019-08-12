@@ -35,7 +35,7 @@ const CreatePost = () => {
             type="text"
             name="title"
             id="title"
-            size="lg"
+            bsSize="lg"
             placeholder="Type your Title..."
             {...bindTitle}
             required
@@ -50,7 +50,7 @@ const CreatePost = () => {
             name="text"
             id="content"
             placeholder="Type your content..."
-            size="lg"
+            bsSize="lg"
             {...bindContent}
             style={{ height: "200px" }}
             required
