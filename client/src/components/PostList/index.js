@@ -7,7 +7,11 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
+<<<<<<< HEAD
   CardLink,
+=======
+  Spinner,
+>>>>>>> master
   Alert
 } from "reactstrap";
 import "./styles.css";
@@ -34,6 +38,9 @@ const PostList = () => {
             😃
           </span>
         </CardText>
+        <Spinner type="grow" color="dark" />
+        <Spinner type="grow" color="dark" />
+        <Spinner type="grow" color="dark" />
       </CardBody>
     </Card>
   );
@@ -70,9 +77,9 @@ const PostList = () => {
 
   return (
     <div className="post-list">
+      {error && <Alert color="danger">{error}</Alert>}
       {posts.length === 0 && !error && loadingCard()}
       {posts.length > 0 && displayPosts()}
-      {error && <Alert color="danger">{error}}</Alert>}
     </div>
   );
 };

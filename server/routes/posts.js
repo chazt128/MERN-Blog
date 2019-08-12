@@ -22,7 +22,6 @@ router.post("/", async (req, res) => {
     const savedPost = await post.save();
     res.json(savedPost);
   } catch (e) {
-    console.log(e);
     res.json({ message: e });
   }
 });
