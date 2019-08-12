@@ -39,9 +39,10 @@ const PostList = () => {
 
   const displayPosts = () =>
     posts.map(post => {
-      const { _id, title, content } = post;
-      let { date } = post;
+      const { _id, title } = post;
+      let { date, content } = post;
       date = new Date(date).toDateString();
+
       return (
         <Card className="card" key={_id}>
           <CardBody>
@@ -51,7 +52,7 @@ const PostList = () => {
             <CardSubtitle>
               <small>{date}</small>
             </CardSubtitle>
-            <CardText>{content}</CardText>
+            <CardText className="card-text">{content}</CardText>
           </CardBody>
         </Card>
       );
