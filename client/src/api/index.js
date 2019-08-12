@@ -24,7 +24,7 @@ export const createPost = async post => {
     body: JSON.stringify(post)
   });
   const data = await res;
-  console.log();
+  console.log(data);
   if (data.status > 400) {
     throw new Error(data);
   }

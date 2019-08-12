@@ -7,6 +7,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
+  Spinner,
   Alert
 } from "reactstrap";
 import "./styles.css";
@@ -25,7 +26,12 @@ const PostList = () => {
     <Card className="card">
       <CardBody>
         <CardTitle>
-          <h3>Loading Posts...</h3>
+          <h3>
+            Loading Posts
+            <Spinner type="grow" size="sm" color="dark" />
+            <Spinner type="grow" size="sm" color="dark" />
+            <Spinner type="grow" size="sm" color="dark" />
+          </h3>
         </CardTitle>
         <CardText>
           We're fetching them
@@ -60,9 +66,9 @@ const PostList = () => {
 
   return (
     <div className="post-list">
+      {error && <Alert color="danger">{error}</Alert>}
       {posts.length === 0 && !error && loadingCard()}
       {posts.length > 0 && displayPosts()}
-      {error && <Alert color="danger">{error}</Alert>}
     </div>
   );
 };
