@@ -7,8 +7,20 @@
 
 .card {
   margin: 20px 0;
+  color: black;
 }
 
 .card-text {
   white-space: pre-wrap;
+}
+
+.card-link {
+  padding: 5px;
+}
+
+.card-edit {
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
