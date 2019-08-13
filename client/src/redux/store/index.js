@@ -7,7 +7,6 @@ const isChrome =
 const isDev = process.env.NODE_ENV !== "production";
 
 const configureStore = () => {
-  console.log("is Chrome", isChrome);
   const sagaMiddleware = createSagaMiddleware();
 
   if (isChrome && isDev) {

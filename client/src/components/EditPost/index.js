@@ -9,48 +9,58 @@ import {
   ModalBody
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { addPost } from "../../redux/actions";
-import { useInput } from "../hooks";
+import { addPost, updatePost } from "../../redux/actions";
 import "./styles.css";
 
-const CreatePost = () => {
-  const { value: title, bind: bindTitle, reset: resetTitle } = useInput("");
-  const { value: content, bind: bindContent, reset: resetContent } = useInput(
-    ""
-  );
+const EditPost = props => {
+  const { buttonLabel, post } = props;
+
+  const [title, setTitle] = useState(post ? post.title : "");
+  const [content, setContent] = useState(post ? post.content : "");
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const toggle = () => {
     setOpen(!open);
-    if (!open) {
-      resetTitle();
-      resetContent();
+    if (open) {
+      setTitle(post ? post.title : "");
+      setContent(post ? post.content : "");
     }
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(
-      addPost({
-        title,
-        content
-      })
-    );
+    if (post) {
+      dispatch(
+        updatePost({
+          _id: post._id,
+          title,
+          content
+        })
+      );
+    } else {
+      dispatch(
+        addPost({
+          title,
+          content
+        })
+      );
+    }
     // coming back to this later to only reset on success
-    resetTitle();
-    resetContent();
+    toggle();
+    setTitle(post ? post.title : "");
+    setContent(post ? post.content : "");
   };
 
   let isDisabled = title === "" || content === "";
-
   return (
     <div className="post-edit">
-      <Button className="form-button" color="dark" onClick={toggle}>
-        <span className="plus" role="img" aria-label="plus">
-          &#43;
-        </span>{" "}
-        Journal Entry
+      <Button
+        className={post ? "btn update-button" : "btn add-button"}
+        color="dark"
+        onClick={toggle}
+      >
+        {buttonLabel}
       </Button>
       <Modal isOpen={open}>
         <ModalBody>
@@ -66,7 +76,8 @@ const CreatePost = () => {
                   id="title"
                   bsSize="lg"
                   placeholder="Type your Title..."
-                  {...bindTitle}
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
                   required
                 />
               </FormGroup>
@@ -80,8 +91,9 @@ const CreatePost = () => {
                   id="content"
                   placeholder="Type your content..."
                   bsSize="lg"
-                  {...bindContent}
-                  style={{ height: "200px" }}
+                  value={content}
+                  onChange={e => setContent(e.target.value)}
+                  style={{ height: "400px" }}
                   required
                 />
               </FormGroup>
@@ -90,7 +102,6 @@ const CreatePost = () => {
                 type="submit"
                 value="Submit"
                 color="dark"
-                onClick={toggle}
                 disabled={isDisabled}
               >
                 Submit
@@ -111,4 +122,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default EditPost;
