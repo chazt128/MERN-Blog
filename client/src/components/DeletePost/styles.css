@@ -1,0 +1,9 @@
+.delete-button {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.delete-button:hover {
+  background: pink;
+}

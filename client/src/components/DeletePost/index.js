@@ -1,14 +1,14 @@
 import React from "react";
-import { Button } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { deletePost } from "../../redux/actions";
+import "./styles.css";
 
 const DeletePost = ({ id }) => {
   const dispatch = useDispatch();
   return (
-    <Button type="button" color="dark" onClick={() => dispatch(deletePost(id))}>
+    <div className="delete-button" onClick={() => dispatch(deletePost(id))}>
       Delete
-    </Button>
+    </div>
   );
 };
 export default DeletePost;

@@ -9,6 +9,8 @@
   margin: 20px 0;
   padding: 10px;
   color: black;
+  background-color: #fffdf2 !important;
+  border: black solid 1px !important;
 }
 
 .card-text {

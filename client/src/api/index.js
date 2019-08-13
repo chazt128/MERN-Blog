@@ -10,7 +10,6 @@ export const fetchPosts = async () => {
   if (data.status > 400) {
     throw new Error(data);
   }
-  // data.sort((a, b) => new Date(b.date) - new Date(a.date));
   return data.reverse();
 };
 
