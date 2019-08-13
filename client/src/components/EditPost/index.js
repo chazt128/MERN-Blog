@@ -13,10 +13,14 @@ import { addPost } from "../../redux/actions";
 import { useInput } from "../hooks";
 import "./styles.css";
 
-const CreatePost = () => {
-  const { value: title, bind: bindTitle, reset: resetTitle } = useInput("");
+const EditPost = props => {
+  const { buttonLabel, post } = props;
+
+  const { value: title, bind: bindTitle, reset: resetTitle } = useInput(
+    post ? post.title : ""
+  );
   const { value: content, bind: bindContent, reset: resetContent } = useInput(
-    ""
+    post ? post.content : ""
   );
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -47,10 +51,7 @@ const CreatePost = () => {
   return (
     <div className="post-edit">
       <Button className="form-button" color="dark" onClick={toggle}>
-        <span className="plus" role="img" aria-label="plus">
-          &#43;
-        </span>{" "}
-        Journal Entry
+        {buttonLabel}
       </Button>
       <Modal isOpen={open}>
         <ModalBody>
@@ -111,4 +112,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default EditPost;
