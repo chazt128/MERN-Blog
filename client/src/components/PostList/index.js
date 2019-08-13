@@ -61,8 +61,12 @@ const PostList = () => {
             <br />
             <CardText className="card-text">{content}</CardText>
             <div className="card-edit">
-              <EditPost buttonLabel="Edit Post" post={post} />
-              <DeletePost id={_id} />
+              <EditPost
+                className="post-btn"
+                buttonLabel="Edit Post"
+                post={post}
+              />
+              <DeletePost className="post-btn" id={_id} />
             </div>
           </CardBody>
         </Card>

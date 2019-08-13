@@ -56,7 +56,7 @@ const EditPost = props => {
   return (
     <div className="post-edit">
       <Button
-        className={post ? "update-button" : "add-button"}
+        className={post ? "btn update-button" : "btn add-button"}
         color="dark"
         onClick={toggle}
       >
