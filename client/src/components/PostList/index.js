@@ -18,6 +18,7 @@ const PostList = () => {
   const dispatch = useDispatch();
   const posts = useSelector(state => state.posts);
   const error = useSelector(state => state.error);
+  const message = useSelector(state => state.message);
 
   useEffect(() => {
     dispatch(loadPosts());
@@ -71,6 +72,7 @@ const PostList = () => {
 
   return (
     <div className="post-list">
+      {message && <Alert color="success">{message}</Alert>}
       {error && <Alert color="danger">{error}</Alert>}
       {posts.length === 0 && !error && loadingCard()}
       {posts.length > 0 && displayPosts()}

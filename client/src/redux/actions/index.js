@@ -11,8 +11,8 @@ export const setPosts = posts => ({
   }
 });
 
-export const setQueryMessage = message => ({
-  type: POSTS.POST_SUCCESS,
+export const setMessage = message => ({
+  type: POSTS.POST_SUCCESS_MESSAGE,
   payload: {
     message
   }
