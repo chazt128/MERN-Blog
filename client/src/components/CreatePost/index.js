@@ -42,6 +42,8 @@ const CreatePost = () => {
     resetContent();
   };
 
+  let isDisabled = title === "" || content === "";
+
   return (
     <div className="post-edit">
       <Button className="form-button" color="dark" onClick={toggle}>
@@ -89,6 +91,7 @@ const CreatePost = () => {
                 value="Submit"
                 color="dark"
                 onClick={toggle}
+                disabled={isDisabled}
               >
                 Submit
               </Button>
