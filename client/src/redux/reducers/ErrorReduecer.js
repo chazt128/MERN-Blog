@@ -2,10 +2,10 @@ import { POSTS } from "../../constants";
 
 const errorReducer = (state = null, { type, payload }) => {
   switch (type) {
-    case POSTS.LOAD_FAILURE:
+    case POSTS.POST_FAILURE:
       return payload.error;
     case POSTS.LOAD:
-    case POSTS.LOAD_SUCCESS:
+    case POSTS.POST_SUCCESS:
     default:
       return state;
   }

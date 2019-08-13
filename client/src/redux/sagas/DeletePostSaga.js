@@ -14,7 +14,7 @@ function* handleDeletePost(id) {
 
 export default function* watchDeletePost() {
   while (true) {
-    const { payload } = yield take(POSTS.DELETE_POST);
+    const { payload } = yield take(POSTS.DELETE);
     console.log("payload");
     yield fork(handleDeletePost, payload.id);
   }

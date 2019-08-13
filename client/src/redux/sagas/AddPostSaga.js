@@ -5,7 +5,8 @@ import { loadPosts, setError } from "../actions";
 
 function* handleAddPost(post) {
   try {
-    yield call(createPost, post);
+    const status = yield call(createPost, post);
+    console.log("add status", status);
     yield put(loadPosts());
   } catch (e) {
     yield put(setError(e.toString()));
@@ -14,7 +15,7 @@ function* handleAddPost(post) {
 
 export default function* watchPostLoad() {
   while (true) {
-    const { payload } = yield take(POSTS.ADD_POST);
+    const { payload } = yield take(POSTS.ADD);
     yield fork(handleAddPost, payload.post);
   }
 }

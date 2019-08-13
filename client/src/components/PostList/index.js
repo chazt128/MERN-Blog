@@ -22,7 +22,7 @@ const PostList = () => {
   useEffect(() => {
     dispatch(loadPosts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posts.length]);
+  }, []);
 
   const loadingCard = () => (
     <Card className="card">

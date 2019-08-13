@@ -15,7 +15,7 @@ function* handleUpdatePost(post) {
 
 export default function* watchUpdatePost() {
   while (true) {
-    const { payload } = yield take(POSTS.UPDATE_POST);
+    const { payload } = yield take(POSTS.UPDATE);
     yield fork(handleUpdatePost, payload.post);
   }
 }
