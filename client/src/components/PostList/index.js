@@ -7,10 +7,10 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  CardLink,
   Spinner,
   Alert
 } from "reactstrap";
+import EditPost from "../EditPost";
 import "./styles.css";
 
 const PostList = () => {
@@ -60,12 +60,7 @@ const PostList = () => {
             <br />
             <CardText className="card-text">{content}</CardText>
             <div className="card-edit">
-              <CardLink className="card-link" href="#">
-                update
-              </CardLink>
-              <CardLink className="card-link" href="#">
-                delete
-              </CardLink>
+              <EditPost buttonLabel="Edit Post" post={post} />
             </div>
           </CardBody>
         </Card>

@@ -9,27 +9,21 @@ import {
   ModalBody
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { addPost } from "../../redux/actions";
-import { useInput } from "../hooks";
+import { addPost, updatePost } from "../../redux/actions";
 import "./styles.css";
 
 const EditPost = props => {
   const { buttonLabel, post } = props;
-
-  const { value: title, bind: bindTitle, reset: resetTitle } = useInput(
-    post ? post.title : ""
-  );
-  const { value: content, bind: bindContent, reset: resetContent } = useInput(
-    post ? post.content : ""
-  );
+  const { title, setTitle } = useState(post ? post.title : "");
+  const { content, setContent } = useState(post ? post.content : "");
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   const toggle = () => {
     setOpen(!open);
-    if (!open) {
-      resetTitle();
-      resetContent();
+    if (open) {
+      setTitle(post ? post.title : "");
+      setContent(post ? post.content : "");
     }
   };
 
@@ -42,12 +36,11 @@ const EditPost = props => {
       })
     );
     // coming back to this later to only reset on success
-    resetTitle();
-    resetContent();
+    setTitle(post ? post.title : "");
+    setContent(post ? post.content : "");
   };
 
   let isDisabled = title === "" || content === "";
-
   return (
     <div className="post-edit">
       <Button className="form-button" color="dark" onClick={toggle}>
