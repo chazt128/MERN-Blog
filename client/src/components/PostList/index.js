@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadPosts } from "../../redux/actions";
+import EditPost from "../EditPost";
+import DeletePost from "../DeletePost";
 import {
   Card,
   CardText,
@@ -10,7 +12,6 @@ import {
   Spinner,
   Alert
 } from "reactstrap";
-import EditPost from "../EditPost";
 import "./styles.css";
 
 const PostList = () => {
@@ -61,6 +62,7 @@ const PostList = () => {
             <CardText className="card-text">{content}</CardText>
             <div className="card-edit">
               <EditPost buttonLabel="Edit Post" post={post} />
+              <DeletePost id={_id} />
             </div>
           </CardBody>
         </Card>

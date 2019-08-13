@@ -55,7 +55,11 @@ const EditPost = props => {
   let isDisabled = title === "" || content === "";
   return (
     <div className="post-edit">
-      <Button className="form-button" color="dark" onClick={toggle}>
+      <Button
+        className={post ? "update-button" : "add-button"}
+        color="dark"
+        onClick={toggle}
+      >
         {buttonLabel}
       </Button>
       <Modal isOpen={open}>
