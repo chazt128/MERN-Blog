@@ -13,3 +13,7 @@
 .update-button:hover {
   background: pink;
 }
+
+.form-button {
+  margin-right: 10px;
+}
