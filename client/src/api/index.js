@@ -30,3 +30,20 @@ export const createPost = async post => {
   }
   return data;
 };
+
+export const updatePost = async post => {
+  console.log("updating", post);
+  const res = fetch(`/api/posts/${post._id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(post)
+  });
+  const data = await res;
+  console.log(data);
+  if (data.status > 400) {
+    throw new Error(data);
+  }
+  return data;
+};
