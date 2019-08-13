@@ -14,8 +14,9 @@ import "./styles.css";
 
 const EditPost = props => {
   const { buttonLabel, post } = props;
-  const { title, setTitle } = useState(post ? post.title : "");
-  const { content, setContent } = useState(post ? post.content : "");
+
+  const [title, setTitle] = useState(post ? post.title : "");
+  const [content, setContent] = useState(post ? post.content : "");
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -29,13 +30,24 @@ const EditPost = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(
-      addPost({
-        title,
-        content
-      })
-    );
+    if (post) {
+      dispatch(
+        updatePost({
+          _id: post._id,
+          title,
+          content
+        })
+      );
+    } else {
+      dispatch(
+        addPost({
+          title,
+          content
+        })
+      );
+    }
     // coming back to this later to only reset on success
+    toggle();
     setTitle(post ? post.title : "");
     setContent(post ? post.content : "");
   };
@@ -60,7 +72,8 @@ const EditPost = props => {
                   id="title"
                   bsSize="lg"
                   placeholder="Type your Title..."
-                  {...bindTitle}
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
                   required
                 />
               </FormGroup>
@@ -74,8 +87,9 @@ const EditPost = props => {
                   id="content"
                   placeholder="Type your content..."
                   bsSize="lg"
-                  {...bindContent}
-                  style={{ height: "200px" }}
+                  value={content}
+                  onChange={e => setContent(e.target.value)}
+                  style={{ height: "400px" }}
                   required
                 />
               </FormGroup>
@@ -84,7 +98,6 @@ const EditPost = props => {
                 type="submit"
                 value="Submit"
                 color="dark"
-                onClick={toggle}
                 disabled={isDisabled}
               >
                 Submit

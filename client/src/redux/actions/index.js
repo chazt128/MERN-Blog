@@ -25,10 +25,9 @@ export const addPost = post => ({
   }
 });
 
-export const updatePost = (id, post) => ({
+export const updatePost = post => ({
   type: POSTS.UPDATE_POST,
   payload: {
-    id,
     post
   }
 });
