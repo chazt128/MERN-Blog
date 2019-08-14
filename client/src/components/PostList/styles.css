@@ -4,13 +4,14 @@
   min-width: 280px;
   width: 100%;
 }
+
 #filter {
   margin-bottom: 20px;
 }
 
 .card {
-  margin: 20px 0;
-  padding: 10px;
+  margin-bottom: 20px;
+  padding: 25px 10px;
   color: black;
   background-color: #fffdf2 !important;
   border: black solid 1px !important;
@@ -21,10 +22,30 @@
 }
 
 .card-edit {
-  padding: 10px;
+  padding: 10px 10px;
   position: absolute;
   top: 0;
   right: 0;
   display: flex;
   flex-direction: row;
+}
+
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert-spacer {
+  visibility: hidden;
+}
+
+.alert-close {
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

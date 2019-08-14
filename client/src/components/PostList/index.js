@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts, setPostChanged } from "../../redux/actions";
+import {
+  loadPosts,
+  setPostChanged,
+  setMessage,
+  setError
+} from "../../redux/actions";
 import EditPost from "../EditPost";
 import DeletePost from "../DeletePost";
 import {
@@ -115,6 +120,7 @@ const PostList = () => {
 
   let noPosts = postList.length === 0 && !loading;
   let isLoading = posts.length === 0 && loading;
+
   return (
     <div className="post-list">
       <Input
@@ -126,8 +132,36 @@ const PostList = () => {
         value={filter}
         onChange={e => filterPosts(e.target.value)}
       />
-      {message && <Alert color="success">{message}</Alert>}
-      {error && <Alert color="danger">{error}</Alert>}
+      <div className="alerts">
+        {!message && !error && (
+          <Alert color="secondary" className="alert alert-spacer">
+            A blank alert for spacing
+            <span className="alert-close">&#10005;</span>
+          </Alert>
+        )}
+        {message && (
+          <Alert color="success" className="alert">
+            {message}
+            <span
+              className="alert-close"
+              onClick={() => dispatch(setMessage(null))}
+            >
+              &#10005;
+            </span>
+          </Alert>
+        )}
+        {error && (
+          <Alert color="danger" className="alert">
+            {error}
+            <span
+              className="alert-close"
+              onClick={() => dispatch(setError(null))}
+            >
+              &#10005;
+            </span>
+          </Alert>
+        )}
+      </div>
       {isLoading && loadingCard()}
       {noPosts && noPostsCard()}
       {displayPosts()}
