@@ -16,7 +16,8 @@ import {
   CardSubtitle,
   Spinner,
   Alert,
-  Input
+  Input,
+  Label
 } from "reactstrap";
 import "./styles.css";
 
@@ -128,7 +129,7 @@ const PostList = () => {
         name="filter"
         id="filter"
         bsSize="lg"
-        placeholder="Search for post..."
+        placeholder="Look up a post..."
         value={filter}
         onChange={e => filterPosts(e.target.value)}
       />

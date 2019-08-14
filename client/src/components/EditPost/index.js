@@ -93,7 +93,7 @@ const EditPost = props => {
                   bsSize="lg"
                   value={content}
                   onChange={e => setContent(e.target.value)}
-                  style={{ height: "400px" }}
+                  style={{ height: "40vh" }}
                   required
                 />
               </FormGroup>
