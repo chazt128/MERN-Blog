@@ -1,12 +1,14 @@
 import { take, fork, call, put } from "redux-saga/effects";
 import { POSTS } from "../../constants";
 import { deletePost } from "../../api";
-import { loadPosts, setError } from "../actions";
+import { loadPosts, setError, setMessage, setPostChanged } from "../actions";
 
 function* handleDeletePost(id) {
   try {
     yield call(deletePost, id);
     yield put(loadPosts());
+    yield put(setMessage("Journal entry successfully deleted"));
+    yield put(setPostChanged(true));
   } catch (e) {
     yield put(setError(e.toString()));
   }
@@ -14,8 +16,7 @@ function* handleDeletePost(id) {
 
 export default function* watchDeletePost() {
   while (true) {
-    const { payload } = yield take(POSTS.DELETE_POST);
-    console.log("payload");
+    const { payload } = yield take(POSTS.DELETE);
     yield fork(handleDeletePost, payload.id);
   }
 }

@@ -20,7 +20,7 @@ const EditPost = props => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const toggle = () => {
+  const handleModal = () => {
     setOpen(!open);
     if (open) {
       setTitle(post ? post.title : "");
@@ -38,6 +38,7 @@ const EditPost = props => {
           content
         })
       );
+      setOpen(!open);
     } else {
       dispatch(
         addPost({
@@ -45,22 +46,19 @@ const EditPost = props => {
           content
         })
       );
+      handleModal();
     }
-    // coming back to this later to only reset on success
-    toggle();
-    setTitle(post ? post.title : "");
-    setContent(post ? post.content : "");
   };
 
   let isDisabled = title === "" || content === "";
   return (
     <div className="post-edit">
       {post ? (
-        <div className="update-button" onClick={toggle}>
+        <div className="update-button" onClick={handleModal}>
           {buttonLabel}
         </div>
       ) : (
-        <Button className="add-button" color="dark" onClick={toggle}>
+        <Button className="add-button" color="dark" onClick={handleModal}>
           {buttonLabel}
         </Button>
       )}
@@ -112,7 +110,7 @@ const EditPost = props => {
                 className="form-button"
                 type="button"
                 color="dark"
-                onClick={toggle}
+                onClick={handleModal}
               >
                 Cancel
               </Button>

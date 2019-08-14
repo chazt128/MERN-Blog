@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts } from "../../redux/actions";
+import { loadPosts, setPostChanged } from "../../redux/actions";
 import EditPost from "../EditPost";
 import DeletePost from "../DeletePost";
 import {
@@ -10,7 +10,8 @@ import {
   CardTitle,
   CardSubtitle,
   Spinner,
-  Alert
+  Alert,
+  Input
 } from "reactstrap";
 import "./styles.css";
 
@@ -18,20 +19,47 @@ const PostList = () => {
   const dispatch = useDispatch();
   const posts = useSelector(state => state.posts);
   const error = useSelector(state => state.error);
+  const message = useSelector(state => state.message);
+  const loading = useSelector(state => state.loading);
+  const postChanged = useSelector(state => state.postChanged);
+  const [filter, setFilter] = useState("");
+  const [postList, setPostList] = useState([]);
+
+  const filterPosts = text => {
+    setFilter(text);
+    setPostList(
+      posts.filter(post => {
+        return (
+          post.title.toLowerCase().includes(text.toLowerCase()) ||
+          post.content.toLowerCase().includes(text.toLowerCase())
+        );
+      })
+    );
+  };
+
+  if (postChanged && posts.length > 0) {
+    console.log("POSTS", posts);
+    if (filter !== "") {
+      filterPosts(filter);
+    } else {
+      setPostList(posts);
+    }
+    if (postChanged) dispatch(setPostChanged(false));
+  }
 
   useEffect(() => {
     dispatch(loadPosts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posts.length]);
+  }, []);
 
   const loadingCard = () => (
     <Card className="card">
       <CardBody>
         <CardTitle>
-          <h3>Loading Posts...</h3>
+          <h3>Loading your journal...</h3>
         </CardTitle>
         <CardText>
-          We're fetching them
+          Hang tight
           <span role="img" aria-label="smile">
             😃
           </span>
@@ -43,8 +71,24 @@ const PostList = () => {
     </Card>
   );
 
+  const noPostsCard = () => (
+    <Card className="card">
+      <CardBody>
+        <CardTitle>
+          <h3>
+            No posts to display{" "}
+            <span role="img" aria-label="sad">
+              😕
+            </span>
+          </h3>
+        </CardTitle>
+        <CardText></CardText>
+      </CardBody>
+    </Card>
+  );
+
   const displayPosts = () =>
-    posts.map(post => {
+    postList.map(post => {
       const { _id, title } = post;
       let { date, content } = post;
       date = new Date(date).toDateString();
@@ -69,11 +113,24 @@ const PostList = () => {
       );
     });
 
+  let noPosts = postList.length === 0 && !loading;
+  let isLoading = posts.length === 0 && loading;
   return (
     <div className="post-list">
+      <Input
+        type="text"
+        name="filter"
+        id="filter"
+        bsSize="lg"
+        placeholder="Search for post..."
+        value={filter}
+        onChange={e => filterPosts(e.target.value)}
+      />
+      {message && <Alert color="success">{message}</Alert>}
       {error && <Alert color="danger">{error}</Alert>}
-      {posts.length === 0 && !error && loadingCard()}
-      {posts.length > 0 && displayPosts()}
+      {isLoading && loadingCard()}
+      {noPosts && noPostsCard()}
+      {displayPosts()}
     </div>
   );
 };

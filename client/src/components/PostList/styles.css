@@ -4,6 +4,9 @@
   min-width: 280px;
   width: 100%;
 }
+#filter {
+  margin-bottom: 20px;
+}
 
 .card {
   margin: 20px 0;

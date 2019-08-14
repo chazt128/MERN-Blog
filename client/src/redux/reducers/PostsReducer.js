@@ -1,7 +1,7 @@
 import { POSTS } from "../../constants";
 
 const postsReducer = (state = [], { type, payload }) => {
-  if (type === POSTS.LOAD_SUCCESS) {
+  if (type === POSTS.POST_SUCCESS) {
     return [...payload.posts];
   }
   return state;

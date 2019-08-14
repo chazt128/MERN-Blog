@@ -1,13 +1,16 @@
 import { take, fork, call, put } from "redux-saga/effects";
 import { POSTS } from "../../constants";
 import { updatePost } from "../../api";
-import { loadPosts, setError } from "../actions";
+import { loadPosts, setError, setMessage, setPostChanged } from "../actions";
 
 function* handleUpdatePost(post) {
   try {
     console.log("handling update", post);
-    yield call(updatePost, post);
+    let update_success = yield call(updatePost, post);
+    console.log(update_success);
     yield put(loadPosts());
+    yield put(setMessage("Journal entry successfully updated"));
+    yield put(setPostChanged(true));
   } catch (e) {
     yield put(setError(e.toString()));
   }
@@ -15,7 +18,7 @@ function* handleUpdatePost(post) {
 
 export default function* watchUpdatePost() {
   while (true) {
-    const { payload } = yield take(POSTS.UPDATE_POST);
+    const { payload } = yield take(POSTS.UPDATE);
     yield fork(handleUpdatePost, payload.post);
   }
 }

@@ -5,35 +5,49 @@ export const loadPosts = () => ({
 });
 
 export const setPosts = posts => ({
-  type: POSTS.LOAD_SUCCESS,
+  type: POSTS.POST_SUCCESS,
   payload: {
     posts
   }
 });
 
+export const setMessage = message => ({
+  type: POSTS.POST_SUCCESS_MESSAGE,
+  payload: {
+    message
+  }
+});
+
+export const setPostChanged = success => ({
+  type: POSTS.POST_CHANGED,
+  payload: {
+    success
+  }
+});
+
 export const setError = error => ({
-  type: POSTS.LOAD_FAILURE,
+  type: POSTS.POST_FAILURE,
   payload: {
     error
   }
 });
 
 export const addPost = post => ({
-  type: POSTS.ADD_POST,
+  type: POSTS.ADD,
   payload: {
     post
   }
 });
 
 export const updatePost = post => ({
-  type: POSTS.UPDATE_POST,
+  type: POSTS.UPDATE,
   payload: {
     post
   }
 });
 
 export const deletePost = id => ({
-  type: POSTS.DELETE_POST,
+  type: POSTS.DELETE,
   payload: {
     id
   }

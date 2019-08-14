@@ -6,7 +6,7 @@ export const fetchPosts = async () => {
     }
   });
   const data = await res.json();
-  console.log(data);
+  console.log("fetched", data);
   if (data.status > 400) {
     throw new Error(data);
   }
@@ -23,7 +23,7 @@ export const createPost = async post => {
     body: JSON.stringify(post)
   });
   const data = await res;
-  console.log(data);
+  console.log("created", data);
   if (data.status > 400) {
     throw new Error(data);
   }
