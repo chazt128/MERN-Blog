@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts } from "../../redux/actions";
+import { loadPosts, setMessage } from "../../redux/actions";
 import EditPost from "../EditPost";
 import DeletePost from "../DeletePost";
 import {
@@ -25,10 +25,11 @@ const PostList = () => {
   const [filter, setFilter] = useState("");
   const [postList, setPostList] = useState([]);
 
-  if (postsLoaded && posts.length > 0) {
+  if (postsLoaded && posts.length > 0 && !loading) {
     console.log("POSTS", posts);
     setPostList([...posts]);
     setPostsLoaded(false);
+    dispatch(setMessage(null));
   }
 
   useEffect(() => {
@@ -109,8 +110,8 @@ const PostList = () => {
       );
     });
 
-  let noPosts = postList.length === 0;
-
+  let noPosts = postList.length === 0 && !loading;
+  let isLoading = posts.length === 0 && loading;
   return (
     <div className="post-list">
       <Input
@@ -124,7 +125,7 @@ const PostList = () => {
       />
       {message && <Alert color="success">{message}</Alert>}
       {error && <Alert color="danger">{error}</Alert>}
-      {posts.length === 0 && loading && loadingCard()}
+      {isLoading && loadingCard()}
       {noPosts && noPostsCard()}
       {displayPosts()}
     </div>
