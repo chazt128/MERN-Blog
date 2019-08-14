@@ -25,9 +25,25 @@ const PostList = () => {
   const [filter, setFilter] = useState("");
   const [postList, setPostList] = useState([]);
 
+  const filterPosts = text => {
+    setFilter(text);
+    setPostList(
+      posts.filter(post => {
+        return (
+          post.title.toLowerCase().includes(text.toLowerCase()) ||
+          post.content.toLowerCase().includes(text.toLowerCase())
+        );
+      })
+    );
+  };
+
   if (postChanged && posts.length > 0) {
     console.log("POSTS", posts);
-    setPostList([...posts]);
+    if (filter !== "") {
+      filterPosts(filter);
+    } else {
+      setPostList(posts);
+    }
     if (postChanged) dispatch(setPostChanged(false));
   }
 
@@ -70,18 +86,6 @@ const PostList = () => {
       </CardBody>
     </Card>
   );
-
-  const filterPosts = text => {
-    setFilter(text);
-    setPostList(
-      posts.filter(post => {
-        return (
-          post.title.toLowerCase().includes(text.toLowerCase()) ||
-          post.content.toLowerCase().includes(text.toLowerCase())
-        );
-      })
-    );
-  };
 
   const displayPosts = () =>
     postList.map(post => {
