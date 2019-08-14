@@ -18,8 +18,8 @@ export const setMessage = message => ({
   }
 });
 
-export const setRequestSuccess = success => ({
-  type: POSTS.POST_REQUEST_SUCCESS,
+export const setPostChanged = success => ({
+  type: POSTS.POST_CHANGED,
   payload: {
     success
   }

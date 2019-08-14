@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts, setRequestSuccess } from "../../redux/actions";
+import { loadPosts, setPostChanged } from "../../redux/actions";
 import EditPost from "../EditPost";
 import DeletePost from "../DeletePost";
 import {
@@ -21,24 +21,20 @@ const PostList = () => {
   const error = useSelector(state => state.error);
   const message = useSelector(state => state.message);
   const loading = useSelector(state => state.loading);
-  const requestSuccess = useSelector(state => state.requestSuccess);
-  const [postsLoaded, setPostsLoaded] = useState(false);
+  const postChanged = useSelector(state => state.postChanged);
   const [filter, setFilter] = useState("");
   const [postList, setPostList] = useState([]);
 
-  if (postsLoaded && posts.length > 0 && !loading) {
+  if (postChanged && posts.length > 0) {
     console.log("POSTS", posts);
     setPostList([...posts]);
-    setPostsLoaded(false);
-    dispatch(setRequestSuccess(false));
+    if (postChanged) dispatch(setPostChanged(false));
   }
 
   useEffect(() => {
-    console.log("mount");
     dispatch(loadPosts());
-    setPostsLoaded(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [requestSuccess]);
+  }, []);
 
   const loadingCard = () => (
     <Card className="card">
@@ -79,8 +75,10 @@ const PostList = () => {
     setFilter(text);
     setPostList(
       posts.filter(post => {
-        const postDetails = `${post.title} ${post.content}`;
-        return postDetails.toLowerCase().includes(text.toLowerCase());
+        return (
+          post.title.toLowerCase().includes(text.toLowerCase()) ||
+          post.content.toLowerCase().includes(text.toLowerCase())
+        );
       })
     );
   };
