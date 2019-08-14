@@ -20,6 +20,7 @@ const PostList = () => {
   const posts = useSelector(state => state.posts);
   const error = useSelector(state => state.error);
   const message = useSelector(state => state.message);
+  const loading = useSelector(state => state.loading);
   const [filter, setFilter] = useState("");
   const [filteredPosts, setFilteredPosts] = useState([]);
 
@@ -27,6 +28,11 @@ const PostList = () => {
     dispatch(loadPosts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // useEffect(() => {
+  //   filterPosts(filter);
+  //       // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
   const loadingCard = () => (
     <Card className="card">
@@ -63,36 +69,40 @@ const PostList = () => {
     </Card>
   );
 
-  const filterPosts = () =>
-    posts
-      .filter(post => {
-        const postDetails = `${post.title} ${post.content}`;
-        return postDetails.toLowerCase().includes(filter.toLowerCase());
-      })
-      .map(post => {
-        const { _id, title } = post;
-        let { date, content } = post;
-        date = new Date(date).toDateString();
+  const filterPosts = text => {
+    const currentlyFiltered = posts.filter(post => {
+      const postDetails = `${post.title} ${post.content}`;
+      return postDetails.toLowerCase().includes(text.toLowerCase());
+    });
+    setFilter(text);
+    setFilteredPosts(() => currentlyFiltered);
+  };
 
-        return (
-          <Card className="card" key={_id}>
-            <CardBody>
-              <CardTitle>
-                <h3>{title}</h3>
-              </CardTitle>
-              <CardSubtitle>
-                <small>{date}</small>
-              </CardSubtitle>
-              <br />
-              <CardText className="card-text">{content}</CardText>
-              <div className="card-edit">
-                <EditPost className="post-btn" buttonLabel="Edit" post={post} />
-                <DeletePost className="post-btn" id={_id} />
-              </div>
-            </CardBody>
-          </Card>
-        );
-      });
+  const displayFilteredPosts = () =>
+    filteredPosts.map(post => {
+      const { _id, title } = post;
+      let { date, content } = post;
+      date = new Date(date).toDateString();
+
+      return (
+        <Card className="card" key={_id}>
+          <CardBody>
+            <CardTitle>
+              <h3>{title}</h3>
+            </CardTitle>
+            <CardSubtitle>
+              <small>{date}</small>
+            </CardSubtitle>
+            <br />
+            <CardText className="card-text">{content}</CardText>
+            <div className="card-edit">
+              <EditPost className="post-btn" buttonLabel="Edit" post={post} />
+              <DeletePost className="post-btn" id={_id} />
+            </div>
+          </CardBody>
+        </Card>
+      );
+    });
 
   const displayAllPosts = () =>
     posts.map(post => {
@@ -120,10 +130,14 @@ const PostList = () => {
       );
     });
 
+  let noPostsToShow =
+    !loading &&
+    (posts.length === 0 || (filter !== "" && filteredPosts.length === 0));
+  let showAll = posts.length > 0 && filter === "";
+  let showFiltered = filteredPosts.length > 0 && filter !== "";
+  console.log("FILTERED", filteredPosts);
   return (
     <div className="post-list">
-      {filterPosts.length}
-
       <Input
         type="text"
         name="filter"
@@ -131,13 +145,14 @@ const PostList = () => {
         bsSize="lg"
         placeholder="Search for post..."
         value={filter}
-        onChange={e => setFilter(e.target.value)}
+        onChange={e => filterPosts(e.target.value)}
       ></Input>
       {message && <Alert color="success">{message}</Alert>}
       {error && <Alert color="danger">{error}</Alert>}
-      {posts.length === 0 && !error && loadingCard()}
-      {posts.length > 0 && filter === "" && displayAllPosts()}
-      {filter.length > 0 && filterPosts()}
+      {loading && loadingCard()}
+      {noPostsToShow && noPostsCard()}
+      {showAll && displayAllPosts()}
+      {showFiltered && displayFilteredPosts()}
     </div>
   );
 };
