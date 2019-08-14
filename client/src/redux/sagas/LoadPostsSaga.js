@@ -14,6 +14,5 @@ function* handlePostsFetch() {
 }
 
 export default function* watchPostLoad() {
-  console.log("waiting for load");
   yield takeEvery(POSTS.LOAD, handlePostsFetch);
 }

@@ -18,6 +18,13 @@ export const setMessage = message => ({
   }
 });
 
+export const setRequestSuccess = success => ({
+  type: POSTS.POST_REQUEST_SUCCESS,
+  payload: {
+    success
+  }
+});
+
 export const setError = error => ({
   type: POSTS.POST_FAILURE,
   payload: {

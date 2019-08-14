@@ -1,7 +1,7 @@
 import { take, fork, call, put } from "redux-saga/effects";
 import { POSTS } from "../../constants";
 import { updatePost } from "../../api";
-import { loadPosts, setError, setMessage } from "../actions";
+import { loadPosts, setError, setMessage, setRequestSuccess } from "../actions";
 
 function* handleUpdatePost(post) {
   try {
@@ -10,6 +10,7 @@ function* handleUpdatePost(post) {
     console.log(update_success);
     yield put(loadPosts());
     yield put(setMessage("Journal entry successfully updated"));
+    yield put(setRequestSuccess(true));
   } catch (e) {
     yield put(setError(e.toString()));
   }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadPosts, setMessage } from "../../redux/actions";
+import { loadPosts, setRequestSuccess } from "../../redux/actions";
 import EditPost from "../EditPost";
 import DeletePost from "../DeletePost";
 import {
@@ -21,6 +21,7 @@ const PostList = () => {
   const error = useSelector(state => state.error);
   const message = useSelector(state => state.message);
   const loading = useSelector(state => state.loading);
+  const requestSuccess = useSelector(state => state.requestSuccess);
   const [postsLoaded, setPostsLoaded] = useState(false);
   const [filter, setFilter] = useState("");
   const [postList, setPostList] = useState([]);
@@ -29,7 +30,7 @@ const PostList = () => {
     console.log("POSTS", posts);
     setPostList([...posts]);
     setPostsLoaded(false);
-    dispatch(setMessage(null));
+    dispatch(setRequestSuccess(false));
   }
 
   useEffect(() => {
@@ -37,7 +38,7 @@ const PostList = () => {
     dispatch(loadPosts());
     setPostsLoaded(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [message]);
+  }, [requestSuccess]);
 
   const loadingCard = () => (
     <Card className="card">
