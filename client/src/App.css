@@ -1,5 +1,6 @@
 .app {
   font-family: "Varela Round", sans-serif;
+  padding-top: 20px;
 }
 .content {
   min-height: 100vh;
