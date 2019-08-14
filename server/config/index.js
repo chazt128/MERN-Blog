@@ -8,7 +8,7 @@ const options = {
   reconnectTries: Number.MAX_VALUE
 };
 
-let url = !isDev ? localDB : process.env.DB_CONNECTION;
+let url = isDev ? localDB : process.env.DB_CONNECTION;
 
 mongoose
   .connect(url, options)
