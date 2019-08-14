@@ -6,7 +6,8 @@ import { loadPosts, setError, setMessage } from "../actions";
 function* handleUpdatePost(post) {
   try {
     console.log("handling update", post);
-    yield call(updatePost, post);
+    let update_success = yield call(updatePost, post);
+    console.log(update_success);
     yield put(loadPosts());
     yield put(setMessage("Journal entry successfully updated"));
   } catch (e) {

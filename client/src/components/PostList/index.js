@@ -29,10 +29,10 @@ const PostList = () => {
     <Card className="card">
       <CardBody>
         <CardTitle>
-          <h3>Loading Posts...</h3>
+          <h3>Loading your journal...</h3>
         </CardTitle>
         <CardText>
-          We're fetching them
+          Hang tight
           <span role="img" aria-label="smile">
             😃
           </span>
