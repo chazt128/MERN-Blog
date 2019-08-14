@@ -21,19 +21,20 @@ const PostList = () => {
   const error = useSelector(state => state.error);
   const message = useSelector(state => state.message);
   const loading = useSelector(state => state.loading);
-  const [initialLoad, setInitialLoad] = useState(false);
+  const [postsLoaded, setPostsLoaded] = useState(false);
   const [filter, setFilter] = useState("");
   const [postList, setPostList] = useState([]);
 
-  if (posts.length > 0 && postList.length === 0 && !initialLoad) {
+  if (postsLoaded && posts.length > 0) {
     console.log("POSTS", posts);
     setPostList([...posts]);
-    setInitialLoad(true);
+    setPostsLoaded(false);
   }
 
   useEffect(() => {
     console.log("mount");
     dispatch(loadPosts());
+    setPostsLoaded(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);
 
@@ -123,9 +124,9 @@ const PostList = () => {
       />
       {message && <Alert color="success">{message}</Alert>}
       {error && <Alert color="danger">{error}</Alert>}
-      {loading && loadingCard()}
+      {posts.length === 0 && loading && loadingCard()}
       {noPosts && noPostsCard()}
-      {!noPosts && displayPosts()}
+      {displayPosts()}
     </div>
   );
 };
