@@ -38,6 +38,7 @@ const EditPost = props => {
           content
         })
       );
+      setOpen(!open);
     } else {
       dispatch(
         addPost({
@@ -45,8 +46,8 @@ const EditPost = props => {
           content
         })
       );
+      handleModal();
     }
-    setOpen(!open);
   };
 
   let isDisabled = title === "" || content === "";
