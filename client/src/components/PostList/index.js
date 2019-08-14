@@ -128,7 +128,7 @@ const PostList = () => {
         name="filter"
         id="filter"
         bsSize="lg"
-        placeholder="Search for post..."
+        placeholder="Type keywords here..."
         value={filter}
         onChange={e => filterPosts(e.target.value)}
       />
