@@ -16,8 +16,7 @@ import {
   CardSubtitle,
   Spinner,
   Alert,
-  Input,
-  Label
+  Input
 } from "reactstrap";
 import "./styles.css";
 
@@ -43,7 +42,7 @@ const PostList = () => {
     );
   };
 
-  if (postChanged && posts.length > 0) {
+  if (postChanged) {
     console.log("POSTS", posts);
     if (filter !== "") {
       filterPosts(filter);
