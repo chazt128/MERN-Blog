@@ -1,3 +1,16 @@
+export const checkServer = async () => {
+  const res = await fetch("/api/server", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+  const { status } = await res.json();
+  if (status === 0 || status === 3) {
+    throw new Error(`server error`);
+  }
+};
+
 export const fetchPosts = async () => {
   const res = await fetch("/api/posts", {
     method: "GET",
@@ -6,15 +19,13 @@ export const fetchPosts = async () => {
     }
   });
   const data = await res.json();
-  console.log("fetched", data);
   if (data.status > 400) {
-    throw new Error(data);
+    throw new Error("failed to fetch posts");
   }
   return data.reverse();
 };
 
 export const createPost = async post => {
-  console.log("attempting to add", post);
   const res = fetch("/api/posts", {
     method: "POST",
     headers: {
@@ -22,16 +33,13 @@ export const createPost = async post => {
     },
     body: JSON.stringify(post)
   });
-  const data = await res;
-  console.log("created", data);
-  if (data.status > 400) {
-    throw new Error(data);
+  const { status } = await res;
+  if (status > 400) {
+    throw new Error("failed to create post");
   }
-  return data;
 };
 
 export const updatePost = async post => {
-  console.log("updating", post);
   const res = fetch(`/api/posts/${post._id}`, {
     method: "PATCH",
     headers: {
@@ -39,23 +47,18 @@ export const updatePost = async post => {
     },
     body: JSON.stringify(post)
   });
-  const data = await res;
-  console.log(data);
-  if (data.status > 400) {
-    throw new Error(data);
+  const { status } = await res;
+  if (status > 400) {
+    throw new Error("failed to update post");
   }
-  return data;
 };
 
 export const deletePost = async id => {
-  console.log("deleting");
   const res = fetch(`/api/posts/${id}`, {
     method: "DELETE"
   });
-  const data = await res;
-  console.log(data);
-  if (data.status > 400) {
-    throw new Error(data);
+  const { status } = await res;
+  if (status > 400) {
+    throw new Error("failed to delete post");
   }
-  return data;
 };
