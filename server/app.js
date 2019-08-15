@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const PORT = process.env.PORT || 5000;
+const mongoose = require("mongoose");
 
 // DB config
 require("./config");
@@ -19,6 +20,11 @@ app.use("/api/posts", postRoute);
 // Routes
 app.get("/", (req, res) => {
   res.send("Journaling can be fun!");
+});
+
+app.get("/api/server", (req, res) => {
+  const dbState = mongoose.connection.readyState;
+  res.json({ status: dbState });
 });
 
 // Listen for this port
