@@ -43,7 +43,6 @@ const PostList = () => {
   };
 
   if (postChanged) {
-    console.log("POSTS", posts);
     if (filter !== "") {
       filterPosts(filter);
     } else {
@@ -81,7 +80,7 @@ const PostList = () => {
       <CardBody>
         <CardTitle>
           <h3>
-            No posts to display{" "}
+            No posts to display
             <span role="img" aria-label="sad">
               😕
             </span>
@@ -128,7 +127,7 @@ const PostList = () => {
         name="filter"
         id="filter"
         bsSize="lg"
-        placeholder="Look up a post..."
+        placeholder="Look up an entry..."
         value={filter}
         onChange={e => filterPosts(e.target.value)}
       />
