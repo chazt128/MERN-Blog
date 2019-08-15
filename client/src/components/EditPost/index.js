@@ -8,13 +8,14 @@ import {
   Modal,
   ModalBody
 } from "reactstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addPost, updatePost } from "../../redux/actions";
 import "./styles.css";
 
 const EditPost = props => {
   const { buttonLabel, post } = props;
 
+  const error = useSelector(state => state.error);
   const [title, setTitle] = useState(post ? post.title : "");
   const [content, setContent] = useState(post ? post.content : "");
   const [open, setOpen] = useState(false);
@@ -22,7 +23,7 @@ const EditPost = props => {
 
   const handleModal = () => {
     setOpen(!open);
-    if (open) {
+    if (open || error) {
       setTitle(post ? post.title : "");
       setContent(post ? post.content : "");
     }

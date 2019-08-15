@@ -1,4 +1,5 @@
 export const POSTS = {
+  CHECK_SERVER: "CHECK_SERVER",
   LOAD: "LOAD_POSTS",
   ADD: "ADD_POST",
   DELETE: "DELETE_POST",

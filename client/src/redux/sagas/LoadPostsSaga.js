@@ -1,11 +1,11 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { POSTS } from "../../constants";
-import { fetchPosts } from "../../api";
+import { checkServer, fetchPosts } from "../../api";
 import { setPosts, setError, setPostChanged } from "../actions";
 
 function* handlePostsFetch() {
-  console.log("fetching posts");
   try {
+    yield call(checkServer);
     const posts = yield call(fetchPosts);
     yield put(setPosts(posts));
     yield put(setPostChanged(true));

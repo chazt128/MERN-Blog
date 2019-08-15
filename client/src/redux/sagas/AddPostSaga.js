@@ -1,12 +1,12 @@
 import { take, fork, call, put } from "redux-saga/effects";
 import { POSTS } from "../../constants";
-import { createPost } from "../../api";
+import { checkServer, createPost } from "../../api";
 import { loadPosts, setError, setMessage, setPostChanged } from "../actions";
 
 function* handleAddPost(post) {
   try {
-    const status = yield call(createPost, post);
-    console.log("add status", status);
+    yield call(checkServer);
+    yield call(createPost, post);
     yield put(loadPosts());
     yield put(setMessage("Journal entry successfully created"));
     yield put(setPostChanged(true));

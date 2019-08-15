@@ -1,13 +1,12 @@
 import { take, fork, call, put } from "redux-saga/effects";
 import { POSTS } from "../../constants";
-import { updatePost } from "../../api";
+import { checkServer, updatePost } from "../../api";
 import { loadPosts, setError, setMessage, setPostChanged } from "../actions";
 
 function* handleUpdatePost(post) {
   try {
-    console.log("handling update", post);
-    let update_success = yield call(updatePost, post);
-    console.log(update_success);
+    yield call(checkServer);
+    yield call(updatePost, post);
     yield put(loadPosts());
     yield put(setMessage("Journal entry successfully updated"));
     yield put(setPostChanged(true));
