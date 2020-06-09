@@ -1,7 +1,5 @@
 # Journaling
 
-A restful journaling web app
-
 ## Tech utilized
 
 ### Frontend
